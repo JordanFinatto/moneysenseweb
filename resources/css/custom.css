@@ -1,0 +1,5 @@
+.bg-image {
+    width: 100%;
+    background: url('/public/media/img/body-background.jpg');
+    background-size: cover;
+}
