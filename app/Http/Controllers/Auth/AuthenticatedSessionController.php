@@ -17,8 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-
-        return view('auth.login')->with('success', 'Login realizado com sucesso!');
+        return view('auth.login');
     }
 
     /**
@@ -28,10 +27,9 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        dd('333');
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended('/dashboard');
     }
 
     /**

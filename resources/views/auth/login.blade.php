@@ -13,12 +13,12 @@
                     @csrf
 
                     <div>
-                        <x-input-label for="usuario_email" :value="__('Email')"/>
+                        <x-input-label for="email" :value="__('Email')"/>
                         <x-text-input
-                            id="usuario_email"
-                            name="usuario_email"
+                            id="email"
+                            name="email"
                             class="block mt-1 w-full" type="email"
-                            :value="old('usuario_email')"
+                            :value="old('email')"
                             required autofocus autocomplete="username"
                         />
                     </div>
@@ -26,11 +26,11 @@
                     <div class="mt-4">
                         <x-input-label for="password" :value="__('Senha')"/>
                         <x-text-input
-                            id="usuario_senha"
+                            id="password"
                             class="block mt-1 w-full"
                             type="password"
-                            name="usuario_senha"
-                            required autocomplete="current-password"
+                            name="password"
+                            required
                         />
                     </div>
 

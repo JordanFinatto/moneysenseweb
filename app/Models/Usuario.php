@@ -19,11 +19,11 @@ class Usuario extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'usuario_nome',
-        'usuario_email',
-        'usuario_senha',
-        'usuario_admin',
-        'usuario_aceitepoliticaprivacidade',
+        'nome',
+        'email',
+        'password',
+        'admin',
+        'aceitePoliticaPrivacidade',
     ];
 
     /**
@@ -32,8 +32,8 @@ class Usuario extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'usuario_senha',
-        'usuario_remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -42,6 +42,6 @@ class Usuario extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'usuario_senha' => 'hashed',
+        'password' => 'hashed',
     ];
 }

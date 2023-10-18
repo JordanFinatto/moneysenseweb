@@ -17,7 +17,7 @@ class EmailVerificationTest extends TestCase
     public function test_email_verification_screen_can_be_rendered(): void
     {
         $user = Usuario::factory()->create([
-            'email_verified_at' => null,
+            'email' => null,
         ]);
 
         $response = $this->actingAs($user)->get('/verify-email');
@@ -28,7 +28,7 @@ class EmailVerificationTest extends TestCase
     public function test_email_can_be_verified(): void
     {
         $user = Usuario::factory()->create([
-            'email_verified_at' => null,
+            'email' => null,
         ]);
 
         Event::fake();
