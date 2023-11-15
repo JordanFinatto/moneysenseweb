@@ -3,3 +3,62 @@
     background: url('/public/media/img/body-background.jpg');
     background-size: cover;
 }
+
+.btn-menu {
+    position: relative;
+    display: inline-block;
+    background-color: #ffffff;
+    color: #4B5563;
+    border-bottom: 2px solid #545662;
+    height: 4.2rem;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+
+}
+
+.btn-menu:hover {
+    background-color: #198754;
+    color: #ffffff;
+    border-color: #198754;
+}
+
+.btn-menu-active {
+    background-color: #198754;
+    color: #ffffff;
+    border-color: #198754;
+}
+
+.btn-menu::before,
+.btn-menu::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    transition: transform 0.3s ease;
+    left: 0;
+}
+
+.btn-menu::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(75, 75, 75, 0.1), transparent);
+    transform-origin: center bottom;
+}
+
+.btn-menu::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(75, 75, 75, 0.1), transparent);
+    transform-origin: center top;
+}
+
+.header-main{
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    height: 65px;
+    padding: 0 2.5rem;
+}
+
+.input{
+    border-radius: 3px;
+    border-color: #888888;
+}

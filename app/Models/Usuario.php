@@ -13,35 +13,39 @@ class Usuario extends Authenticatable
 
     protected $table  = 'usuario';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'nome',
         'email',
         'password',
         'admin',
         'aceitePoliticaPrivacidade',
+        'criador',
+        'alterador',
+        'situacao',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public static function findOneById($id)
+    {
+        $class = get_called_class();
+
+        if (property_exists($class, 'table'))
+        {
+            $model = new $class;
+
+            return $model::query()
+                ->where('id', '=', $id)
+                ->first();
+        }
+
+        return null;
+    }
 }
