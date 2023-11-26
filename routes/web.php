@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopicoController;
 use App\Http\Controllers\OrientadorController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,6 +79,30 @@ Route::middleware(['auth', 'verified'])->group(function ()
 {
     Route::post('/orientador', [OrientadorController::class, 'create'])->name('orientador.create');
     Route::patch('/orientador', [OrientadorController::class, 'update'])->name('orientador.update');
+});
+
+//USUARIOS --------------------------------------------------------------------------------------------------------------------------------
+
+Route::get('/usuario', function ()
+{
+    return view('usuario/listagem', ['usuarios' => \App\Models\Usuario::findAll()]);
+})->middleware(['auth', 'verified'])->name('usuario.listagem');
+
+Route::get('/usuario/adicionar', function ()
+{
+    return view('usuario/edit');
+})->middleware(['auth', 'verified'])->name('usuario.adicionar');
+
+Route::get('/usuario/editar/{id}', function ()
+{
+    $id = request()->route()->parameter('id');
+    return view('usuario/edit', ['usuario' => \App\Models\Usuario::findOneById($id)]);
+})->middleware(['auth', 'verified'])->name('usuario.editar');
+
+Route::middleware(['auth', 'verified'])->group(function ()
+{
+    Route::post('/usuario', [UsuarioController::class, 'create'])->name('usuario.create');
+    Route::patch('/usuario', [UsuarioController::class, 'update'])->name('usuario.update');
 });
 
 require __DIR__ . '/auth.php';

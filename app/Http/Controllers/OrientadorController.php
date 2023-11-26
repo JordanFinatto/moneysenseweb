@@ -28,8 +28,6 @@ class OrientadorController extends Controller
 
     public function update(OrientadorRequest $request)
     {
-        debug($request->telefone);
-
         $orientador = \App\Models\Orientador::findOneById($request->id);
         $orientador->idCidade = $request->idCidade;
         $orientador->nome = $request->nome;

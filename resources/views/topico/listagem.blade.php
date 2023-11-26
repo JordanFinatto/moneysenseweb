@@ -17,7 +17,7 @@
                 <thead>
                     <tr>
                         <th scope="col" style="width: 5%"></th>
-                        <th scope="col">Titulo</th>
+                        <th scope="col">Título</th>
                         <th scope="col">Orientador</th>
                         <th scope="col">Situação</th>
                         <th scope="col" style="width: 15%; text-align: end">Alterador</th>

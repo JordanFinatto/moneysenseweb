@@ -12,37 +12,36 @@ class BaseModel extends Model
     {
         $class = "\\" . get_called_class();
 
-        $models = $class::query()->get();
-        $returnValues = [];
+        $models = $class::query()
+            ->orderBy('updated_at', 'DESC')
+            ->get();
 
         foreach ($models as $model)
         {
-            if(isset($model->alterador) && $model->alterador)
+            if (isset($model->alterador) && $model->alterador)
             {
                 $user = \App\Models\Usuario::findOneById($model->alterador);
                 $model->alteradorDescription = $user->nome;
             }
 
-            if(isset($model->criador) && $model->criador)
+            if (isset($model->criador) && $model->criador)
             {
                 $user = \App\Models\Usuario::findOneById($model->criador);
                 $model->criadorDescription = $user->nome;
             }
 
-            if(isset($model->created_at) && $model->created_at)
+            if (isset($model->created_at) && $model->created_at)
             {
                 $model->created_atDescription = date_create($model->created_at)->format('d/m/Y H:i');
             }
 
-            if(isset($model->updated_at) && $model->updated_at)
+            if (isset($model->updated_at) && $model->updated_at)
             {
                 $model->updated_atDescription = date_create($model->updated_at)->format('d/m/Y H:i');
             }
-
-            $returnValues[] = $model;
         }
 
-        return $returnValues;
+        return $models;
     }
 
     public static function findOneById($id)

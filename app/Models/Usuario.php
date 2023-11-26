@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table  = 'usuario';
+    protected $table = 'usuario';
 
     protected $fillable = [
         'nome',
@@ -35,17 +36,33 @@ class Usuario extends Authenticatable
 
     public static function findOneById($id)
     {
-        $class = get_called_class();
+        return self::query()
+            ->where('id', '=', $id)
+            ->first();
+    }
 
-        if (property_exists($class, 'table'))
+    public static function findAll()
+    {
+        $users = self::query()
+            ->where('id', '<>', Auth::id())
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        foreach ($users as $user)
         {
-            $model = new $class;
+            if ($user->alterador)
+            {
+                $alterador = self::findOneById($user->alterador);
+                $user->alteradorDescription = $alterador->nome;
+            }
 
-            return $model::query()
-                ->where('id', '=', $id)
-                ->first();
+            $criador = self::findOneById($user->criador);
+
+            $user->criadorDescription = $criador->nome;
+            $user->created_atDescription = date_create($user->created_at)->format('d/m/Y H:i');
+            $user->updated_atDescription = date_create($user->updated_at)->format('d/m/Y H:i');
         }
 
-        return null;
+        return $users;
     }
 }

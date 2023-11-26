@@ -37,7 +37,7 @@
                         {{__('Orientadores')}}
                     </button>
 
-                    <button type="button" class="btn-menu text-left" onclick="window.location='{{url("usuario.listagem")}}'">
+                    <button type="button" class="btn-menu text-left" onclick="window.location='{{route("usuario.listagem")}}'">
                         <i class="fa-solid fa-user mr-2 ml-4"></i>
                         {{__('Usuários')}}
                     </button>

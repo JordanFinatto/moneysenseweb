@@ -84,22 +84,4 @@
                 </form>
         </div>
     </div>
-
-    <script>
-        (() => {
-            const forms = document.querySelectorAll('.needs-validation');
-
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        toastr.error("Preencha todos os campos obrigatórios!");
-                    }
-
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
-    </script>
 </x-app-layout>
