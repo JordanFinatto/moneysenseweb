@@ -12,9 +12,20 @@ class BaseModel extends Model
     {
         $class = "\\" . get_called_class();
 
-        $models = $class::query()
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+        $model = new $class;
+
+        if ($model instanceof \App\Models\Cidade || $model instanceof \App\Models\Estado)
+        {
+            $models = $class::query()
+                ->get();
+        }
+        else
+        {
+            $models = $class::query()
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+        }
+
 
         foreach ($models as $model)
         {
