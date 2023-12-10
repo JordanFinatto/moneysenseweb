@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function ()
 {
-    return view('dashboard');
+    return view('dashboard', ['dadosGrafico' => \App\Models\Usuario::getCadastrosDiarios()]);
 })->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function ()
 {
-    return view('dashboard');
+    return view('dashboard', ['dadosGrafico' => \App\Models\Usuario::getCadastrosDiarios()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function ()

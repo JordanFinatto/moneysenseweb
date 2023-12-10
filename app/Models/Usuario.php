@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
@@ -64,5 +66,35 @@ class Usuario extends Authenticatable
         }
 
         return $users;
+    }
+
+    public static function getCadastrosDiarios()
+    {
+        $startDate = Carbon::now();
+        $startDate->addDays(-30);
+
+        $dadosDb = DB::table('usuario')
+            ->select(DB::raw('count(*) as cadastros, DATE(created_at) as data'))
+            ->where('created_at', '>', $startDate->toDateString())
+            ->groupByRaw('DATE(created_at)')
+            ->get();
+
+        $dados = [];
+        $now = Carbon::now();
+
+        while ($startDate < $now)
+        {
+            $dados[$startDate->format('d/m')] = 0;
+
+            $startDate->addDay();
+        }
+
+        foreach ($dadosDb as $dado)
+        {
+            $data = new Carbon($dado->data);
+            $dados[$data->format('d/m')] = $dado->cadastros;
+        }
+
+        return $dados;
     }
 }
